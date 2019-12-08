@@ -6,7 +6,7 @@
 # LICENSE file in the root directory of this source tree.
 
 python3 embed.py \
-       -dim 5 \
+       -dim 2 \
        -lr 0.3 \
        -epochs 300 \
        -negs 50 \
@@ -14,9 +14,8 @@ python3 embed.py \
        -ndproc 4 \
        -manifold poincare \
        -dset wordnet/mammal_closure.csv \
-       -checkpoint mammals.pth \
+       -checkpoint results/2d/mammals.pth \
        -batchsize 10 \
        -eval_each 1 \
-       -fresh \
        -sparse \
        -train_threads 2
