@@ -1,5 +1,4 @@
 *.pth
-*.pth.*
 *.so
 build
 __pycache__
