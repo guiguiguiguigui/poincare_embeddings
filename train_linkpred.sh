@@ -14,8 +14,8 @@ python3 embed.py \
        -burnin 20 \
        -ndproc 4 \
        -manifold poincare \
-       -dset resources/physics/train_{$i}.csv \
-       -checkpoint results/physics/{$i}.pth \
+       -dset resources/physics/train_"$i".csv \
+       -checkpoint results/physics/"$i".pth \
        -batchsize 10 \
        -eval_each 20 \
        -sparse \
@@ -29,8 +29,8 @@ python3 embed.py \
        -burnin 20 \
        -ndproc 4 \
        -manifold euclidean \
-       -dset resources/physics/train_{$i}.csv \
-       -checkpoint results/physics/eu_{$i}.pth \
+       -dset resources/physics/train_"$i".csv \
+       -checkpoint results/physics/eu_"$i"}.pth \
        -batchsize 10 \
        -eval_each 20 \
        -sparse \
