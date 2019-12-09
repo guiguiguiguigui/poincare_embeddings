@@ -274,6 +274,10 @@ def main():
         opt.checkpoint = outpath.format(count)
         embed(opt, df.iloc[train_index])
 
+        opt.manifold = 'euclidean'
+        opt.checkpoint = outpath.format('eu'+str(count))
+        embed(opt, df.iloc[train_index])
+        count += 1
 
 if __name__ == '__main__':
     main()
