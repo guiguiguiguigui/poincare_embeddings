@@ -1,5 +1,5 @@
-*.pth
 *.so
+.ipynb_checkpoints/*
 build
 __pycache__
 wordnet/*.csv
