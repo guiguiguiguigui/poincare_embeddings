@@ -179,25 +179,10 @@ def embed(opt, df):
     model = model.to(device)
     if hasattr(model, 'w_avg'):
         model.w_avg = model.w_avg.to(device)
-    if opt.train_threads > 1:
-        threads = []
-        model = model.share_memory()
-        args = (device, model, data, optimizer, opt, log)
-        kwargs = {'ctrl': control, 'progress' : not opt.quiet}
-        for i in range(opt.train_threads):
-            kwargs['rank'] = i
-            threads.append(mp.Process(target=train.train, args=args, kwargs=kwargs))
-            threads[-1].start()
-        [t.join() for t in threads]
-    else:
-        train.train(device, model, data, optimizer, opt, log, ctrl=control,
+
+    train.train(device, model, data, optimizer, opt, log, ctrl=control,
             progress=not opt.quiet)
-    controlQ.put(None)
-    control_thread.join()
-    while not logQ.empty():
-        lmsg, pth = logQ.get()
-        shutil.move(pth, opt.checkpoint)
-        log.info(f'json_stats: {json.dumps(lmsg)}')
+
 
 def parse_graph(inpath, outpath='', save = True):
     df = pandas.DataFrame(columns=['id1', 'id2'])
@@ -269,7 +254,6 @@ def main():
     csv_out = "results/physics/test_{}.csv"
     for train_index, test_index in idx:
         df.iloc[test_index].to_csv(csv_out.format(count), index=False)
-
         opt.manifold = 'poincare'
         opt.checkpoint = outpath.format(count)
         embed(opt, df.iloc[train_index])
