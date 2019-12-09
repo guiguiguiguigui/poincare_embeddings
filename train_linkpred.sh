@@ -4,7 +4,7 @@ python3 split_data.py \
        -dset resources/physics/data.csv \
        -out physics
 
-for i in {0..4}
+for i in 0 1 2 3 4
 do
 python3 embed.py \
        -dim 10 \
