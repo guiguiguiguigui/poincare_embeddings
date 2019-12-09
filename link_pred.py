@@ -200,6 +200,24 @@ def parse_graph(inpath, outpath='', save = True):
     return df, idx
 
 def main():
+
+    df = pandas.read_csv(opt.dset, usecols=['id1', 'id2', 'weight'], engine='c')
+    idx = KFold(n_splits = 5, shuffle = True).split(df) #5-way split
+
+    count = 0
+
+    train_csv = "results/physics/train_{}.csv"
+    test_csv = "results/physics/test_{}.csv"
+
+    for train_index, test_index in idx:
+        df.iloc[train_index].to_csv(train_csv.format(count), index=False)
+        df.iloc[test_index].to_csv(test_csv.format(count), index=False)
+        count += 1
+
+if __name__ == '__main__':
+    main()
+
+def args():
     parser = argparse.ArgumentParser(description='Train Hyperbolic Embeddings')
     parser.add_argument('-checkpoint', default='/tmp/hype_embeddings.pth',
                         help='Where to store the model checkpoint')
@@ -244,24 +262,4 @@ def main():
     parser.add_argument('-train_threads', type=int, default=1,
                         help='Number of threads to use in training')
     opt = parser.parse_args()
-
-    df = pandas.read_csv(opt.dset, usecols=['id1', 'id2', 'weight'], engine='c')
-    idx = KFold(n_splits = 5, shuffle = True).split(df) #5-way split
-
-    count = 0
-
-    outpath = "results/physics/result_{}.pth"
-    csv_out = "results/physics/test_{}.csv"
-    for train_index, test_index in idx:
-        df.iloc[test_index].to_csv(csv_out.format(count), index=False)
-        opt.manifold = 'poincare'
-        opt.checkpoint = outpath.format(count)
-        embed(opt, df.iloc[train_index])
-
-        opt.manifold = 'euclidean'
-        opt.checkpoint = outpath.format('eu'+str(count))
-        embed(opt, df.iloc[train_index])
-        count += 1
-
-if __name__ == '__main__':
-    main()
+    return opt
