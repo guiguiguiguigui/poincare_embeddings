@@ -22,9 +22,5 @@ def main():
         df.iloc[train_index].to_csv(train_csv.format(count), index=False)
         df.iloc[test_index].to_csv(test_csv.format(count), index=False)
         count += 1
-
-        count += 1
-
-
 if __name__ == '__main__':
     main()
