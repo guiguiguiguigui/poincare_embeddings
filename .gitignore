@@ -1,4 +1,5 @@
 *.so
+resources/physics/train_
 .ipynb_checkpoints/*
 build
 __pycache__
