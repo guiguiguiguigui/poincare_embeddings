@@ -1,6 +1,6 @@
 * Poincaré Embeddings for Learning Hierarchical Representations
 
-PyTorch implementation of [[https://papers.nips.cc/paper/7213-poincare-embeddings-for-learning-hierarchical-representations][Poincaré Embeddings for Learning Hierarchical Representations]]
+PyTorch implementation of [[https://papers.nips.cc/paper/7213-poincare-embeddings-for-learning-hierarchical-representations][Poincaré Embeddings for Learning Hierarchical Representations]] with modification and appenditure from Cassie Qiu and Sophia Sun.
 
 [[file:wn-nouns.jpg]]
 
@@ -13,6 +13,9 @@ Simply clone this repository via
   source activate poincare
   python setup.py build_ext --inplace
 #+END_SRC
+
+** Running visualization, classification, and link prediction
+We've made a few changes to the origional repositiory to enable visualization and link prediction (with K-fold cross validation and MAP score). View some example experiments in `visualization_classfication.ipynb` and `link_prediction.ipynb`  
 
 ** Example: Embedding WordNet Mammals
 To embed the transitive closure of the WordNet mammals subtree, first generate the data via
@@ -31,12 +34,6 @@ This shell script includes the appropriate parameter settings for the mammals su
 An identical script to learn embeddings of the entire noun hierarchy is located at =train-nouns.sh=. This script contains the hyperparameter setting to reproduce the results for 10-dimensional embeddings of [[https://papers.nips.cc/paper/7213-poincare-embeddings-for-learning-hierarchical-representations][(Nickel & Kiela, 2017)]]. The hyperparameter setting to reproduce the MAP results are provided as comments in the script.
 
 The embeddings are trained via multithreaded async SGD. In the example above, the number of threads is set to a conservative setting (=NHTREADS=2=) which should run well even on smaller machines. On machines with many cores, increase =NTHREADS= for faster convergence.
-
-** Dependencies
-- Python 3 with NumPy
-- PyTorch
-- Scikit-Learn
-- NLTK (to generate the WordNet data)
 
 ** References
 If you find this code useful for your research, please cite the following paper in your publication:

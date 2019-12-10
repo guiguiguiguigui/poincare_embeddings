@@ -1,7 +1,7 @@
 #!/bin/sh
 
 python3 split_data.py \
-       -dset resources/physics/data.csv \
+       -dset resources/physics/CA-GrQc.txt \
        -out physics
 
 for i in 0 1 2 3 4
@@ -14,8 +14,8 @@ python3 embed.py \
        -burnin 20 \
        -ndproc 4 \
        -manifold poincare \
-       -dset resources/physics/train_30.csv \
-       -checkpoint results/physics/30.pth \
+       -dset resources/physics/train_"$i".csv \
+       -checkpoint results/physics/"$i".pth \
        -batchsize 10 \
        -eval_each 20 \
        -sparse \
@@ -29,8 +29,8 @@ python3 embed.py \
        -burnin 20 \
        -ndproc 4 \
        -manifold euclidean \
-       -dset resources/physics/train_30.csv \
-       -checkpoint results/physics/eu_30.pth \
+       -dset resources/physics/train_0.csv \
+       -checkpoint results/physics/eu_0.pth \
        -batchsize 10 \
        -eval_each 20 \
        -sparse \
