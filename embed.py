@@ -234,7 +234,7 @@ def main():
     else:
         train.train(device, model, data, optimizer, opt, log, ctrl=control,
             progress=not opt.quiet)
-        logQ
+
     controlQ.put(None)
     control_thread.join()
     while not logQ.empty():

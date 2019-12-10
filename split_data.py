@@ -32,13 +32,15 @@ def main():
     opt = parser.parse_args()
 
     df = pandas.read_csv(opt.dset, usecols=['id1', 'id2', 'weight'], engine='c')
-    X_train, X_test = train_test_split(df, test_size = 0.3, random_state = 42)
 
-    train_csv = "resources/" + opt.out + "/train_{}.csv"
-    test_csv = "resources/" + opt.out + "/test_{}.csv"
+    for split in [0.1, 0.2, 0.3, 0.4, 0.5, 0.6]:
+        X_train, X_test = train_test_split(df, test_size = split, random_state = 42)
 
-    X_train.to_csv(train_csv.format(30), index=False)
-    X_test.to_csv(test_csv.format(30), index=False)
+        train_csv = "resources/" + opt.out + "/train_{}.csv"
+        test_csv = "resources/" + opt.out + "/test_{}.csv"
+
+        X_train.to_csv(train_csv.format(split*100), index=False)
+        X_test.to_csv(test_csv.format(split*100), index=False)
 
 if __name__ == '__main__':
     main()
