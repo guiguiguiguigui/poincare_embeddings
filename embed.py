@@ -234,12 +234,17 @@ def main():
     else:
         train.train(device, model, data, optimizer, opt, log, ctrl=control,
             progress=not opt.quiet)
+        logQ
     controlQ.put(None)
     control_thread.join()
     while not logQ.empty():
         lmsg, pth = logQ.get()
         shutil.move(pth, opt.checkpoint)
         log.info(f'json_stats: {json.dumps(lmsg)}')
+        if lmsg['epoch'] == opt.epochs-1:
+            logQ.close()
+            break
+
 
 
 if __name__ == '__main__':
