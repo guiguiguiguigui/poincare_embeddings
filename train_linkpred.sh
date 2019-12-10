@@ -24,13 +24,13 @@ python3 embed.py \
 python3 embed.py \
        -dim 10 \
        -lr 0.3 \
-       -epochs 150 \
+       -epochs 100 \
        -negs 50 \
        -burnin 20 \
        -ndproc 4 \
        -manifold euclidean \
        -dset resources/physics/train_"$i".csv \
-       -checkpoint results/physics/eu_"$i"}.pth \
+       -checkpoint results/physics/eu_"$i".pth \
        -batchsize 10 \
        -eval_each 20 \
        -sparse \
