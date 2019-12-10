@@ -24,7 +24,7 @@ python3 embed.py \
 python3 embed.py \
        -dim 10 \
        -lr 0.3 \
-       -epochs 100 \
+       -epochs 150 \
        -negs 50 \
        -burnin 20 \
        -ndproc 4 \
